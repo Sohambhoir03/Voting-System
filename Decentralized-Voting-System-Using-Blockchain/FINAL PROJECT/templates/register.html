@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="blockchain-title">
+                <i class="fas fa-link"></i> Join the Blockchain Network
+                <span class="blockchain-subtitle">Create your secure identity</span>
+            </h1>
+        </header>
+
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2><i class="fas fa-user-plus"></i> Register</h2>
+                <form action="{{ url_for('register') }}" method="POST" class="auth-form">
+                    <div class="input-group">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" name="aadhar" placeholder="Aadhar Number" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <button type="submit" class="btn blockchain-btn">
+                        <i class="fas fa-wallet"></i> Create Blockchain ID
+                    </button>
+                </form>
+                <p class="auth-link">Already registered? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

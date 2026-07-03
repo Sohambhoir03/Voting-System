@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Login - Blockchain Voting</title>
+</head>
+<body>
+    <h1>Face Login</h1>
+    <video id="video" width="320" height="240" autoplay></video>
+    <button id="capture">Login with Face</button>
+    <form id="faceForm" method="POST">
+        <input type="hidden" name="image" id="imageInput">
+    </form>
+
+    <script>
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture');
+        const imageInput = document.getElementById('imageInput');
+        const faceForm = document.getElementById('faceForm');
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream })
+            .catch(err => { console.error("Camera error: ", err) });
+
+        captureBtn.onclick = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            // Convert image to Base64
+            const dataURL = canvas.toDataURL('image/png');
+            imageInput.value = dataURL;
+
+            // Popup message
+            alert("Face captured successfully!");
+
+            faceForm.submit();
+        };
+    </script>
+</body>
+</html>

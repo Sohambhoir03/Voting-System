@@ -1,0 +1,60 @@
+<!-- templates/user.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard - Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="blockchain-title">
+                <i class="fas fa-vote-yea"></i> Ongoing Elections
+                <span class="blockchain-subtitle">Cast your vote securely</span>
+            </h1>
+        </header>
+
+        <div class="election-grid">
+            {% for election in elections %}
+                <div class="election-card">
+                    <h3>{{ election.name }}</h3>
+                    <p class="election-dates">
+                        <i class="fas fa-calendar-alt"></i> {{ election.start_date }} - {{ election.end_date }}
+                    </p>
+                    {% if db.has_user_voted(db_connection, session['user_id'], election.id) %}
+                        <p class="voted-message">Vote Successfully stored in Blockchain.</p>
+                    {% else %}
+                       <form method="post" action="/vote">
+  <label>
+    <input type="radio" name="candidate" value="BJP" required>
+    <img src="{{ url_for('static', filename='upload/images/bjp.jpg') }}" alt="BJP" width="150">
+    <span class="candidate-name">BJP</span>
+  </label>
+
+  <label>
+    <input type="radio" name="candidate" value="Indian National Congress" required>
+    <img src="{{ url_for('static', filename='upload/images/inc.png') }}" alt="Indian National Congress" width="150">
+    <span class="candidate-name">Indian National Congress</span>
+  </label>
+
+  <button type="submit">Vote</button>
+</form>
+                            </div>
+                            <button type="submit" class="btn blockchain-btn">
+                                <i class="fas fa-vote-yea"></i> Cast Vote
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="results-link">
+            <a href="/results" class="btn outline-btn">
+                <i class="fas fa-chart-bar"></i> View Results
+            </a>
+        </div>
+    </div>
+</body>
+</html>

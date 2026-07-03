@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results - Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="blockchain-title">
+                <i class="fas fa-chart-bar"></i> Voting Results
+                <span class="blockchain-subtitle">Transparent and Immutable</span>
+            </h1>
+        </header>
+
+        <!-- Candidate Results -->
+        <section class="results-section">
+            <h2><i class="fas fa-users"></i> Candidate Results</h2>
+            <canvas id="candidateChart"></canvas>
+        </section>
+
+        <!-- Age Demographics -->
+        <section class="results-section">
+            <h2><i class="fas fa-birthday-cake"></i> Age Group Distribution</h2>
+            <canvas id="ageChart"></canvas>
+        </section>
+
+        <!-- Gender Demographics -->
+        <section class="results-section">
+            <h2><i class="fas fa-venus-mars"></i> Gender Distribution</h2>
+            <canvas id="genderChart"></canvas>
+        </section>
+
+        <!-- Region Demographics -->
+        <section class="results-section">
+            <h2><i class="fas fa-map-marker-alt"></i> Regional Participation</h2>
+            <canvas id="regionChart"></canvas>
+        </section>
+    </div>
+
+    <script>
+        // These values will come from Flask backend dynamically
+        const candidateData = {{ candidate_data | safe }};
+        const ageData = {{ age_data | safe }};
+        const genderData = {{ gender_data | safe }};
+        const regionData = {{ region_data | safe }};
+
+        // Candidate Result Pie Chart
+        new Chart(document.getElementById("candidateChart"), {
+            type: "pie",
+            data: {
+                labels: candidateData.labels,
+                datasets: [{
+                    data: candidateData.values,
+                    backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56", "#4CAF50"]
+                }]
+            }
+        });
+
+        // Age Group Bar Chart
+        new Chart(document.getElementById("ageChart"), {
+            type: "bar",
+            data: {
+                labels: ageData.labels,
+                datasets: [{
+                    label: "Votes",
+                    data: ageData.values,
+                    backgroundColor: "#36A2EB"
+                }]
+            }
+        });
+
+        // Gender Pie Chart
+        new Chart(document.getElementById("genderChart"), {
+            type: "pie",
+            data: {
+                labels: genderData.labels,
+                datasets: [{
+                    data: genderData.values,
+                    backgroundColor: ["#FF6384", "#36A2EB", "#9966FF"]
+                }]
+            }
+        });
+
+        // Region Participation Bar Chart
+        new Chart(document.getElementById("regionChart"), {
+            type: "bar",
+            data: {
+                labels: regionData.labels,
+                datasets: [{
+                    label: "Votes",
+                    data: regionData.values,
+                    backgroundColor: "#4CAF50"
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

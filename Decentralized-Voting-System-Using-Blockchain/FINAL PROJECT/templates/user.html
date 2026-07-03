@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard - Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="blockchain-title">
+                <i class="fas fa-vote-yea"></i> Ongoing Elections
+                <span class="blockchain-subtitle">Cast your vote securely</span>
+            </h1>
+        </header>
+
+        <!-- MetaMask Wallet Section -->
+        <div class="wallet-section" style="margin: 20px 0;">
+            <button id="connectWallet" class="btn blockchain-btn">
+                Connect MetaMask Wallet
+            </button>
+            <p id="walletAddress"></p>
+        </div>
+
+        <!-- Elections Grid -->
+        <div class="election-grid">
+            {% for election in elections %}
+                <div class="election-card">
+                    <h3>{{ election.name }}</h3>
+                    <p class="election-dates">
+                        <i class="fas fa-calendar-alt"></i> {{ election.start_date }} - {{ election.end_date }}
+                    </p>
+
+                    {% if election.has_voted %}
+                        <p class="voted-message">Vote Successfully stored in Blockchain.</p>
+                    {% else %}
+                        <form action="/vote" method="POST" class="vote-form">
+                            <input type="hidden" name="election_id" value="{{ election.id }}">
+                            <div class="candidate-options">
+                                <label>
+                                    <input type="radio" name="candidate" value="{{ election.candidate1_name }}" required>
+                                    <!-- ✅ Correct way to load static image -->
+                                    <img src="{{ url_for('static', filename=election.candidate1_image) }}" 
+                                         alt="{{ election.candidate1_name }}" width="150">
+                                    <span class="candidate-name">
+                                        CANDIDATE 1: {{ election.candidate1_name }} ({{ election.candidate1_party }})
+                                    </span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="candidate" value="{{ election.candidate2_name }}" required>
+                                    <!-- ✅ Correct way to load static image -->
+                                    <img src="{{ url_for('static', filename=election.candidate2_image) }}" 
+                                         alt="{{ election.candidate2_name }}" width="150">
+                                    <span class="candidate-name">
+                                        CANDIDATE 2: {{ election.candidate2_name }} ({{ election.candidate2_party }})
+                                    </span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn blockchain-btn">
+                                <i class="fas fa-vote-yea"></i> Cast Vote
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="results-link">
+            <a href="/results" class="btn outline-btn">
+                <i class="fas fa-chart-bar"></i> View Results
+            </a>
+        </div>
+    </div>
+
+    <!-- MetaMask Script -->
+    <script>
+        const connectWalletButton = document.getElementById('connectWallet');
+        const walletAddress = document.getElementById('walletAddress');
+
+        connectWalletButton.addEventListener('click', async () => {
+            if (window.ethereum) {
+                try {
+                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                    walletAddress.textContent = 'Connected: ' + accounts[0];
+                    connectWalletButton.style.display = 'none';
+                } catch (error) {
+                    console.error(error);
+                    alert('Wallet connection failed!');
+                }
+            } else {
+                alert('MetaMask is not installed!');
+            }
+        });
+    </script>
+</body>
+</html>

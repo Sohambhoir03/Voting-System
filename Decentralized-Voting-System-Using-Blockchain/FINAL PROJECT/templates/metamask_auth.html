@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MetaMask Verification</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+</head>
+<body>
+  <h2>Connect MetaMask</h2>
+  <button id="connectBtn">Connect Wallet</button>
+
+  <form id="metamaskForm" method="POST">
+    <input type="hidden" name="wallet_address" id="wallet_address">
+  </form>
+
+  <script>
+    document.getElementById('connectBtn').onclick = async function() {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        document.getElementById('wallet_address').value = accounts[0];
+        document.getElementById('metamaskForm').submit();
+      } else {
+        alert("MetaMask not found. Please install it.");
+      }
+    }
+  </script>
+</body>
+</html>

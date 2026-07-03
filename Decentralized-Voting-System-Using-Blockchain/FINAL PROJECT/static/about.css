@@ -1,0 +1,330 @@
+/* Base Styles */
+:root {
+    --primary-blue: #4b6cb7;
+    --dark-blue: #182848;
+    --accent-green: #11998e;
+    --light-gray: #f8f9fa;
+    --text-dark: #2b2d42;
+    --text-light: #6c757d;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    background-color: var(--light-gray);
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.about-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.header-content p {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.back-btn {
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* Main Content */
+.about-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Blockchain Animation */
+.blockchain-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem auto;
+    height: 100px;
+}
+
+.block {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 3px solid var(--primary-blue);
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.block::after {
+    content: "#";
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.chain {
+    width: 30px;
+    height: 6px;
+    background: var(--primary-blue);
+    margin: 0 -3px;
+}
+
+/* Features Section */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.icon {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    margin: 0 0 1rem 0;
+}
+
+/* How It Works */
+.how-it-works {
+    margin: 5rem 0;
+}
+
+.how-it-works h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.steps::before {
+    content: "";
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--primary-blue), var(--accent-green));
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border: 4px solid var(--primary-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.step-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex-grow: 1;
+    margin-top: 1rem;
+}
+
+.step-content h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-blue);
+}
+
+/* Technology Stack */
+.tech-stack {
+    margin: 5rem 0;
+}
+
+.tech-stack h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.tech-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.tech-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tech-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.tech-item i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.tech-item[data-tech="flask"] i { color: #3776AB; }
+.tech-item[data-tech="blockchain"] i { color: #4b6cb7; }
+.tech-item[data-tech="mysql"] i { color: #4479A1; }
+.tech-item[data-tech="html5"] i { color: #E34F26; }
+.tech-item[data-tech="css3"] i { color: #1572B6; }
+.tech-item[data-tech="js"] i { color: #F7DF1E; }
+
+/* Footer */
+.about-footer {
+    background: var(--text-dark);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .back-btn {
+        position: static;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+    
+    .steps::before {
+        left: 35px;
+    }
+    
+    .step-number {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blockchain-animation {
+        height: 80px;
+    }
+    
+    .block {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .chain {
+        width: 20px;
+    }
+    
+    .steps::before {
+        left: 30px;
+    }
+    
+    .step-number {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .tech-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

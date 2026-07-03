@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Login | Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="fas fa-vote-yea"></i>
+                    <span>Voter Authentication</span>
+                </div>
+                <h2>Cast Your Secure Vote</h2>
+            </div>
+
+            <!-- Aadhar Login Form -->
+            <form action="{{ url_for('login') }}" method="POST" class="login-form">
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="aadhar"><i class="fas fa-id-card"></i> Aadhar Number</label>
+                    <input type="text" id="aadhar" name="aadhar" required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-fingerprint"></i> Verify Identity
+                </button>
+            </form>
+
+            <hr>
+
+            <!-- Face Login Section -->
+            <div class="face-login">
+                <h3>Or login with Face Recognition</h3>
+                <video id="video" width="320" height="240" autoplay></video>
+                <button id="capture" class="login-btn"><i class="fas fa-camera"></i> Login with Face</button>
+
+                <form id="faceForm" method="POST" action="{{ url_for('face_login') }}">
+                    <input type="hidden" name="image" id="imageInput">
+                </form>
+            </div>
+
+            <div class="login-footer">
+                <p>New to blockchain voting? <a href="{{ url_for('register') }}">Register identity</a></p>
+                <a href="{{ url_for('index') }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture');
+        const imageInput = document.getElementById('imageInput');
+        const faceForm = document.getElementById('faceForm');
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => { video.srcObject = stream })
+            .catch(err => { console.error("Camera error: ", err) });
+
+        captureBtn.onclick = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+
+            // Convert image to Base64
+            const dataURL = canvas.toDataURL('image/png');
+            imageInput.value = dataURL;
+
+            // Popup success message
+            alert("Face captured successfully!");
+
+            // Submit form for Flask route
+            faceForm.submit();
+        };
+    </script>
+</body>  
+</html>

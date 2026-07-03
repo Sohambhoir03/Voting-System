@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .input-hint {
+            display: block;
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Admin Portal</span>
+                </div>
+                <h2>System Administrator Access</h2>
+            </div>
+
+            <form action="{{ url_for('admin_login') }}" method="POST" class="admin-login-form">
+                {% if error %}
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="admin_username"><i class="fas fa-user-cog"></i> Admin ID</label>
+                    <input type="text" id="admin_username" name="admin_username" placeholder="Example: admin123" required>
+                    <small class="input-hint">Example Admin ID: <strong>admin123</strong></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="admin_password"><i class="fas fa-key"></i> Security Key</label>
+                    <input type="password" id="admin_password" name="admin_password" placeholder="Example: Pass@123" required>
+                    <small class="input-hint">Example Security Key: <strong>Pass@123</strong></small>
+                </div>
+
+                <button type="submit" class="admin-login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Authenticate
+                </button>
+            </form>
+
+            <div class="admin-login-footer">
+                <a href="{{ url_for('index') }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <span class="security-note">
+                    <i class="fas fa-lock"></i> Secure Access Only
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

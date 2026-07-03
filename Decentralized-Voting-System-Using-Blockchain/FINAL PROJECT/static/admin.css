@@ -1,0 +1,42 @@
+/* Extends auth.css with admin-specific styles */
+.admin-login-container {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8f4fc 100%);
+}
+
+.admin-login-card {
+    border-top: 4px solid var(--admin-green);
+}
+
+.admin-login-form input:focus {
+    border-color: var(--admin-green);
+    box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.2);
+}
+
+.security-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--admin-green);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Admin Form Additional Security */
+.admin-login-form {
+    position: relative;
+    padding-top: 1rem;
+}
+
+.admin-login-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e9ecef, transparent);
+}

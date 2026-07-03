@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard - Blockchain Voting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="blockchain-title">
+                <i class="fas fa-user-shield"></i> Admin Dashboard
+                <span class="blockchain-subtitle">Manage elections and votes</span>
+            </h1>
+        </header>
+
+        <div class="admin-actions">
+            <!-- Create Election Form -->
+            <div class="create-election">
+                <h2><i class="fas fa-plus-circle"></i> Create Election</h2>
+                <form action="/create_election" method="POST" class="election-form" enctype="multipart/form-data">
+                    <input type="text" name="name" placeholder="Election Name" required><br><br>
+                    <input type="datetime-local" name="start_date" required><br><br>
+                    <input type="datetime-local" name="end_date" required><br><br>
+                    
+                    <h3>Candidate 1</h3>
+                    <input type="text" name="candidate1_name" placeholder="Candidate 1 Name" required><br><br>
+                    <input type="file" name="candidate1_image" accept="image/*"><br><br>
+                    
+                    <h3>Candidate 2</h3>
+                    <input type="text" name="candidate2_name" placeholder="Candidate 2 Name" required><br><br>
+                    <input type="file" name="candidate2_image" accept="image/*"><br><br>
+                    
+                    <button type="submit" class="btn blockchain-btn">
+                        <i class="fas fa-save"></i> Create Election
+                    </button>
+                </form>
+            </div>
+
+            <!-- Delete Election Form -->
+            <div class="delete-election">
+                <h2><i class="fas fa-trash"></i> Delete Election</h2>
+                <form action="/delete_election" method="POST" class="election-form">
+                    <select name="election_id" required>
+                        <option value="" disabled selected>Select Election</option>
+                        {% for election in elections %}
+                            <option value="{{ election.id }}">{{ election.name }}</option>
+                        {% endfor %}
+                    </select><br><br>
+                    <button type="submit" class="btn blockchain-btn">
+                        <i class="fas fa-trash"></i> Delete Election
+                    </button>
+                </form>
+            </div>
+
+            <!-- Vote Statistics -->
+            <div class="vote-stats">
+                <h2><i class="fas fa-chart-pie"></i> Vote Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <p>Total Users: {{ users|length }}</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-vote-yea"></i>
+                        <p>Total Votes: {{ votes|length }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
